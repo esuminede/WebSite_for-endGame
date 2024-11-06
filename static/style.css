@@ -1,0 +1,316 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+html{
+    scroll-behavior: smooth;
+}
+
+.header{
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("img/building.jpeg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+nav{
+    border-radius: 200px;
+    display: flex;
+    margin: 0.25% 5% 0% 5%;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+nav img{
+    width: 100px; 
+    border-radius: 400px;  
+}
+.nav-links{ /*nav-bar elemanlarını sağ üst köşeye taşıdı*/ 
+    flex: 1;
+    text-align: right;
+    font-weight: 600;
+}
+.nav-links ul li{ /*oluşturulan navbar başlıklarını sayfanın yanyana yazdı*/
+    list-style: none; /*navbardaki elemanları bullet list şeklinde tutuluyordu. Onu kaldırdı.*/
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+.nav-links ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+}
+.nav-links ul li::after{ /*navbar elemanlarını altında bir çizgi oluşturdu. Width = 0 yaptık görünmesin diye*/
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #f44336;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.nav-links ul li:hover::after{ /*navbardaki elemanın üzerine gelince altında çizgi belirecek*/
+    width: 100%;
+}
+
+.text-box{
+    width: 90%;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.text-box h1{
+    font: size 62px; 
+}
+.text-box p{
+    margin: 10px 0 40px;
+    font-size: 14px;
+    color: #fff;
+}
+.hero-btn{
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+}
+.hero-btn:hover{
+    border: 1px;
+    background: #f44336;
+    transition: 1s;
+}
+
+nav .fa{
+    display: none; /*küçük ekran için navbar'ı sağa çekmiştik. 
+                    Navbar'a eklenen fa ikonlarını büyük ekranda göstermiyoruz.*/
+}
+
+@media(max-width: 700px) {
+    .text-box h1{
+        font: size 20px; 
+    }
+    .nav-links ul li{
+        display: block;
+    }
+    .nav-links{
+        position: absolute;
+        background: #f44336;
+        height: 100vh;
+        width: 200px;
+        top:0; 
+        right: -200px; /*bu sayede küçük ekranda sağda sürekli açık olan navbar'ı*/
+        text-align: left;
+        z-index: 2;
+        transition: 1s;
+    }
+    nav .fa{
+        display: block;
+        color: #fff;
+        margin: 10px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+    .nav-links ul{
+        padding: 30px;
+    }
+}
+
+/*-----------------ABOUT----------------*/
+
+.products{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+
+p{
+    color: #777;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+}
+.row{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+.col-products{
+    flex-basis: 31%;
+    background: #fff3f3;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    padding: 20px 12px;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+h3{
+    text-align: center;
+    font-weight: 600;
+    margin: 10px 0;
+}
+.col-products:hover{
+    box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+}
+
+@media(max-width: 700px){
+    .row{
+        flex-direction: column ;
+    }
+}
+
+/*---about----*/
+.about{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+.col-about{
+    flex-basis: 32%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+.col-about img{
+    width: 100%;
+    display: block;
+}
+.layer{
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+.layer:hover{
+    background: rgba(226, 0, 0, 0.1);
+}
+.layer h3{
+    width: 100%;
+    font-weight: 500;
+    color: #fff;
+    font-size: 20px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /*yazıyı aşağıdan merkeze çıkartma animasyonu*/
+    position: absolute;
+    opacity: 0;
+    transform: 0.5s;
+}
+.layer:hover h3{
+    bottom: 49%;
+    opacity: 1;
+}
+
+
+
+
+
+
+
+/*---CHATBOT için----*/
+.chatbot-icon {
+    position: fixed;
+    bottom: 3%;
+    right: 5%;
+    background-color: #4E78A0;
+    color: white;
+    padding: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chatbox {
+    display: none;
+    position: fixed;
+    bottom: 8%;
+    right: 5%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    height: 450px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: #4E78A0;
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.chat-content {
+    padding: 10px;
+    height: 75%;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    gap: 5px;
+}
+
+.chat-input input {
+    flex-grow: 80%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.chat-input button {
+    background-color: #4E78A0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.user-message, .bot-message {
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background-color: 	#E0FFFF;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.bot-message {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+}
+

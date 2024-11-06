@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobilya Örnek Web Site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="header" id="home">
+        <nav>
+            <a href="index.html"><img src="{{ url_for('static', filename='img/logo.png') }}"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#vision">Vision</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <div class="text-box">
+            <h1>Furniture for Your Future</h1>
+            <p>This site is a simplified example for our university end game project. We are making a furniture database and train a language model. And after that we will have an chatbot for sector of furniture. 
+                <br>We are here to show how could it be.
+            </p>
+            <a href="" class="hero-btn">Visit us to Know More.</a>
+        </div>
+    </section>
+
+    <!----Products ---->
+    <section class="products" id="products">
+        <h1>Our Products</h1>
+        <p>Lorem ipsum dolr sit ammet, consectetur adipiscing elit.</p>
+
+        <div class="row">
+            <div class="col-products">
+                <h3>Living Room</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Morbi dolor turpis, fringilla at sollicitudin pulvinar, tempus non est.
+                    Ut viverra lorem vel sagittis cursus. 
+                </p>
+            </div>
+            <div class="col-products">
+                <h3>Bedroom</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Morbi dolor turpis, fringilla at sollicitudin pulvinar, tempus non est.
+                    Ut viverra lorem vel sagittis cursus. 
+                </p>
+            </div>
+            <div class="col-products">
+                <h3>Kitchen</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Morbi dolor turpis, fringilla at sollicitudin pulvinar, tempus non est.
+                    Ut viverra lorem vel sagittis cursus. 
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!----About ---->
+
+    <section class="about" id="about">
+        <h1>Who Are We?</h1>
+        <p>Lorem ipsum dolr sit ammet, consectetur adipiscing elit.</p>
+
+        <div class="row">
+            <div class="col-about">
+                <img src="{{ url_for('static', filename='img/living_room.jpeg') }}">
+                <div class="layer">
+                    <h3>LIVING ROOMS</h3>
+                </div>
+            </div>
+            <div class="col-about">
+                <img src="{{ url_for('static', filename='img/bedroom.jpeg') }}">
+                <div class="layer">
+                    <h3>BEDROOMS</h3>
+                </div>
+            </div>
+            <div class="col-about">
+                <img src="{{ url_for('static', filename='img/kitchen.jpeg') }}">
+                <div class="layer">
+                    <h3>KITCHEN</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--CHATBOT için-->
+    <div class="chatbot-icon" onclick="toggleChat()">
+        💬
+    </div>
+    <div class="chatbox" id="chatbox">
+        <div class="chat-header">Sohbet Botu</div>
+        <div class="chat-content" id="chat-content">
+            <div class="bot-message">Merhaba, sizi yetkiliye aktarıyorum.</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Mesajınızı yazın..." />
+            <button onclick="sendMessage()">Gönder</button>
+        </div>
+    </div>
+    
+    
+
+    <!-----JavaScript for Toggle Menu--------->-
+    <script>
+        
+    function toggleChat() {
+        var chatbox = document.getElementById("chatbox");
+        chatbox.style.display = chatbox.style.display === "none" || chatbox.style.display === "" ? "block" : "none";
+    }
+
+    function sendMessage() {
+        var userInput = document.getElementById("user-input").value;
+        if (userInput.trim() === "") return;
+
+        // Kullanıcı mesajını göster
+        var chatContent = document.getElementById("chat-content");
+        var userMessage = document.createElement("div");
+        userMessage.className = "user-message";
+        userMessage.textContent = userInput;
+        chatContent.appendChild(userMessage);
+
+        // Sohbet kutusunu temizle
+        document.getElementById("user-input").value = "";
+
+        // Bot yanıtını sunucuya gönder ve yanıtı al
+        fetch('/get-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({message: userInput})
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Bot cevabını göster
+            var botMessage = document.createElement("div");
+            botMessage.className = "bot-message";
+            botMessage.textContent = data.response;
+            chatContent.appendChild(botMessage);
+
+        // Scroll'u en alta kaydır
+        chatContent.scrollTop = chatContent.scrollHeight;
+    }, 1000);
+
+    // Scroll'u en alta kaydır
+    chatContent.scrollTop = chatContent.scrollHeight;
+    }
+    </script>
+
+    <script>
+        function openChat() {
+            var chatbox = document.getElementById("chatbox");
+            if (chatbox.style.display === "none" || chatbox.style.display === "") {
+                chatbox.style.display = "block";
+            } else {
+                chatbox.style.display = "none";
+            }
+    }
+    </script>
+
+    <script>
+        // Sohbet kutusunda Enter ve Shift + Enter özellikleri
+        document.getElementById("user-input").addEventListener("keydown", function(event) {
+            // Shift + Enter ile alt satıra geç
+            if (event.key === "Enter" && event.shiftKey) {
+                event.preventDefault(); // Sayfanın yenilenmesini engelle
+                this.value += "\n"; // Yeni satıra geç
+            }
+            // Enter tuşuna basıldığında mesajı gönder
+            else if (event.key === "Enter") {
+                event.preventDefault(); // Sayfanın yenilenmesini engelle
+                sendMessage(); // Mesaj gönderme fonksiyonunu çağır
+            }
+        });
+
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            if (userInput.trim() === "") return;
+
+            // Kullanıcı mesajını göster
+            var chatContent = document.getElementById("chat-content");
+            var userMessage = document.createElement("div");
+            userMessage.className = "user-message";
+            userMessage.textContent = userInput;
+            chatContent.appendChild(userMessage);
+
+            // Sohbet kutusunu temizle
+            document.getElementById("user-input").value = "";
+
+            // Bot yanıtını sunucuya gönder ve yanıtı al
+            fetch('/get-response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({message: userInput})
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Bot cevabını göster
+                var botMessage = document.createElement("div");
+                botMessage.className = "bot-message";
+                botMessage.textContent = data.response;
+                chatContent.appendChild(botMessage);
+
+                // Scroll'u en alta kaydır
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        }
+    </script>
+
+</body>
+</html>
